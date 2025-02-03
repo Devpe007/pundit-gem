@@ -2,6 +2,8 @@
 
 <% if user_signed_in? %>
   <%= button_to "Sair", destroy_user_session_path, method: :delete %>
+  </br>
+  <%= current_user.email %>
 <% end %>
 
 <div class="w-full">
@@ -18,9 +20,13 @@
     <% if @posts.any? %>
       <% @posts.each do |post| %>
         <%= render post %>
-        <p>
+
+          <% if policy(post).index? %>
+          <p>
           <%= link_to "Show this post", post, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-        </p>
+          </p>
+        <% end %>
+
       <% end %>
     <% else %>
       <p class="text-center my-10">No posts found.</p>
