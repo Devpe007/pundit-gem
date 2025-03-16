@@ -14,6 +14,8 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+
+    authorize @post
   end
 
   # GET /posts/1/edit
@@ -25,6 +27,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
+
+    authorize @post
 
     respond_to do |format|
       if @post.save
